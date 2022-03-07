@@ -2,13 +2,11 @@ package logger
 
 import (
 	"os"
-	"path"
 	"strconv"
 
 	"github.com/linnv/logx"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
 
 	"qnCommonLogger/common"
 )
@@ -101,12 +99,7 @@ func setupLogger(log *logrus.Logger, fileName string, logDir string, sizeLimit i
 // 按文件大小分割
 func SetupLoggerCommon(logDir, logName string, sizeLimit int64, level logrus.Level) {
 	if logDir == "" {
-		configFilePath := viper.GetString("c")
-		if configFilePath != "" {
-			logDir = path.Join(configFilePath, "../log")
-		} else {
-			logDir = path.Join(configFilePath, "./log")
-		}
+		logDir = "../log"
 	}
 	logx.Debugf("SetupLoggerCommon using log dir : [%s]\n", logDir)
 
@@ -117,12 +110,7 @@ func SetupLoggerCommon(logDir, logName string, sizeLimit int64, level logrus.Lev
 // 按时间分割
 func SetupLoggerCommonByDate(logDir, logName string, rotateMaxAge, skip int, report bool, level logrus.Level) {
 	if logDir == "" {
-		configFilePath := viper.GetString("c")
-		if configFilePath != "" {
-			logDir = path.Join(configFilePath, "../log")
-		} else {
-			logDir = path.Join(configFilePath, "./log")
-		}
+		logDir = "../log"
 	}
 	logx.Debugf("SetupLoggerCommonByDate using log dir : [%s]\n", logDir)
 
@@ -140,12 +128,7 @@ func SetupLoggerCommonByDate(logDir, logName string, rotateMaxAge, skip int, rep
 */
 func SetupLoggerCommonRotate(logDir, logName string, maxSizeM, rotateMaxBackups, rotateMaxAge, skip int, report bool, level logrus.Level) {
 	if logDir == "" {
-		configFilePath := viper.GetString("c")
-		if configFilePath != "" {
-			logDir = path.Join(configFilePath, "../log")
-		} else {
-			logDir = path.Join(configFilePath, "./log")
-		}
+		logDir = "../log"
 	}
 	logx.Debugf("SetupLoggerCommon using log dir : [%s]\n", logDir)
 
@@ -158,12 +141,7 @@ func SetupLoggerCommonRotate(logDir, logName string, maxSizeM, rotateMaxBackups,
 // 输出json
 func SetupQnFormatByDate(logDir, logName, serviceName string, rotateMaxAge, skip int, report bool, level logrus.Level) {
 	if logDir == "" {
-		configFilePath := viper.GetString("c")
-		if configFilePath != "" {
-			logDir = path.Join(configFilePath, "../logQn")
-		} else {
-			logDir = path.Join(configFilePath, "./logQn")
-		}
+		logDir = "../log"
 	}
 	logx.Debugf("SetupQnFormatByDate using log dir : [%s]\n", logDir)
 

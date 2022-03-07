@@ -19,7 +19,20 @@ func LogxPrintf(level int, uid string, format string, parameters ...interface{})
 		LogxDebug(format, parameters...)
 	}
 }
-
+func FileLogPrintf(name string, level int, uid string, format string, parameters ...interface{}) {
+	log := GetFileLoggerMgr().fileWriters[name]
+	format = fmt.Sprintf("%s\t%s", LOGX_INFO_PREFIX+uid, format)
+	switch level {
+	case 0:
+		log.Debugf(format, parameters...)
+	case 1:
+		log.Warnf(format, parameters...)
+	case 2:
+		log.Errorf(format, parameters...)
+	default:
+		log.Debugf(format, parameters...)
+	}
+}
 func LogxDebug(format string, parameters ...interface{}) {
 	GetCommonFileLogger().Debugf(format, parameters...)
 }
